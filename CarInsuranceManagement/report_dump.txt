@@ -1,0 +1,347 @@
+Project: Car Insurance Management
+-185737
+385445
+0
+0
+Phát
+ biểu bài toán quản lý bảo hiểm xe hơi
+Phân tích bài toán quản lý bảo hiểm xe hơi
+Phân tích dữ liệu
+Stt
+Khái niệm
+Giải thích
+1
+Car
+Mô tả cho một 
+đối tượng xe hơi
+2
+C
+a
+r
+List
+Mô tả cho danh sách 
+các xe
+3
+Insurance
+Mô tả cho một 
+hợp đồng bảo hiểm
+4
+Insurance
+List
+Mô tả cho danh sách 
+hợp đồng bảo hiểm
+Kho dữ liệu của bài toán: 
+Tập tin nhị phân Car
+I
+nfo.dat chứa danh sách xe hơi ( CarList)
+Tập tin nhị phân insurances.dat chứa danh sách các hợp đồng bảo hiểm ( InsuranceList)
+Bảng chi tiết thực thể dữ liệu:
+Mô tả 1 xe ( Car)
+Stt
+Thuộc tính
+Giải thích
+1
+licensePlate
+Biển số
+2
+carOwner
+Tên chủ xe
+3
+carBrand
+Dòng xe
+4
+carValue
+Trị giá xe
+5
+regDate
+Ngày đăng ký
+6
+regPlace
+Nơi đăng ký
+7
+vehicleType
+Loại xe mấy chỗ ngồi
+           
+Mô tả 1 hợp đồng bảo hiểm
+Stt
+Thuộc tính
+Giải thích
+1
+inID
+Mã hợp đồng bảo hiểm
+2
+esDate
+Ngày xuất bản
+3
+licensePlate
+Biển số xe
+4
+cusName
+Tên khách hàng
+5
+inPeriod
+Thời hạn bảo hiểm
+6
+inFee
+Phí bảo hiểm
+Các chức năng cần có của ứng dụng
+Người dùng cần được hỗ trợ các chức năng sau:
+Stt
+Chức năng
+Giải thích
+1
+Add car information
+Chức năng thêm một 
+xe mới vào hệ thống
+2
+Find a car
+Chức năng
+ tìm thông tin xe theo biển số
+3
+Update a car
+Chức năng
+ cập nhật thông tin cho một xe
+(không cho phép sửa biển số)
+4
+Delete a car
+Chức năng
+ xóa thông tin xe theo biển số
+(chỉ xóa khi xe chưa từng đăng ký bảo hiểm)
+5
+Add an insurance statement
+Chức năng
+ thêm một hợp đồng bảo hiểm cho xe và tự động tính phí bảo hiểm
+6
+List of insurance statements
+Chức năng
+ liệt kê danh sách các HDBH theo năm chỉ định và hỗ trợ sắp xếp theo trường được chọn
+7
+Report on uninsured cars
+Chức năng
+ báo cáo danh 
+sách các xe chưa có HĐBH và hỗ trợ sắp xếp theo trường được chọn
+8
+Save data
+Chức năng lưu danh sách xe vào tập tin CarInfo.dat và các HĐBH vào tập tin insurances.dat
+9
+Load data
+Chức năng nạp dữ liệu xe và HĐBH từ các tập tin nhị phân vào bộ nhớ
+10
+Quit
+Chức năng xác nhận thoát ứng dụng và nhắc lưu dữ liệu nếu có thay đổi
+Nhận
+ diện các mẫu dữ liệu ( Pattern)
+Stt
+Dữ liệu
+Pattern
+1
+Buộc
+ 
+nhập
+, 
+duy
+ 
+nhất
+ 
+trong
+ 
+danh
+ 
+sách
+ 
+xe
+. Khi 
+lập
+ HĐBH 
+thì
+ 
+phải
+ 
+tồn
+ 
+tại
+ 
+trong
+ 
+carList
+PLATE_PAT = "^[a-zA-Z0-9.
+-]+
+$"
+2
+Độ dài từ 2 đến 35 ký tự, không chứa ký tự đặc biệt lạ.
+NAME_PAT = "^[a-
+zA
+-Z
+\\s]{
+2,
+35}$
+"
+3
+Buộc nhập
+CUS_NAME_PAT = "^[a-
+zA
+-Z
+\\s]{
+2,
+35}$
+"
+(
+hoặc
+ 
+chuỗi
+ 
+không
+ 
+rỗng
+)
+4
+Buộc nhập, không được để trống
+BRAND_PAT = "^[a-zA-Z0-9
+\\s]+
+$"
+5
+Số nguyên/thực dương lớn hơn 999.
+carValue
+ > 999 (Pattern: ^[1-
+9]\\d
+{3
+,}$
+)
+6
+Buộc nhập, không được để trống.
+PLACE_PAT = "
+^.+
+$"
+7
+Nên chọn qua menu 3 tùy chọn (5 chỗ / 7 chỗ / 9 chỗ) để loại trừ lỗi nhập.
+Thuộc
+ 
+tập
+ {5, 7, 9} (Pattern: 
+^[579]$
+)
+8
+Buộc
+ 
+nhập
+, 
+duy
+ 
+nhất
+ 
+trong
+ 
+danh
+ 
+sách
+ HĐBH (
+stmtList
+)
+IN_ID_PAT = "^[\\d]{
+4}$
+"
+(hoặc chuỗi mã định danh)
+9
+chọn qua menu 3 tùy chọn (12 tháng / 24 tháng / 36 tháng).
+^(
+12|24|
+36)$
+)
+10
+Giá trị tính ra là số dương, dùng DecimalFormat ("#,##0") khi xuất màn hình/báo cáo.
+Kỳ
+ 
+hạn
+ = 12 
+tháng
+: 
+0.25×
+carValue
+Kỳ
+ 
+hạn
+ = 24 
+tháng
+: 
+0.20×
+carValue
+×2
+Kỳ
+ 
+hạn
+ = 36 
+tháng
+: 
+0.15×
+carValue
+×3
+11
+Dùng
+ 
+chung
+ 
+cho
+ 
+toàn
+ 
+bộ
+ 
+hệ
+ 
+thống
+ 
+để
+ parse 
+và
+ format 
+ngày
+DATE_PAT = "MM/dd/
+yyyy
+" (
+hoặc
+ "dd/MM/
+yyyy
+")
+12
+Ràng buộc thời gian: Phải là ngày trong quá khứ (trước ngày hôm nay)
+regDate.before
+(new 
+Date(
+))
+13
+Ràng buộc thời gian: Phải là ngày trong tương lai (sau ngày hôm nay)
+esDate.after
+(new 
+Date(
+))
+14
+Nhập 4 chữ số năm khảo sát (ví dụ: 2023)
+YEAR_PAT = "^
+\\d{4}$
+"
+Thiết kế bài toán quản lý bảo hiểm xe hơi 
+Thiết kế lớp
+Stt
+Class
+Mô tả cho
+1
+Car
+Một chiếc xe ( Car)
+2
+CarList
+Một CarList
+3
+I_Statement
+Một hợp đồng bảo hiểm xe hơi (I_Statement)
+4
+StmtList
+Một StmtList
+5
+CarInsuranceMng
+Chương trình quản lý bảo hiểm xe hơi
+6
+ConsoleInputter
+Bộ công cụ nhập liệu có kiểm soát
+Quan hệ giữa các lớp
+Cấu trúc hệ thống
+      
